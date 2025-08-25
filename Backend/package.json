@@ -1,0 +1,11 @@
+{
+  "name": "chitwan",
+  "version": "1.0.0",
+  "description": "chitwan governmental app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Crown Institute",
+  "license": "ISC"
+}
