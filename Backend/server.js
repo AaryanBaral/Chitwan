@@ -3,6 +3,13 @@ import express from "express";
 import cors from "cors";
 import { corsOption } from "./Configurations/cors.js";
 import adminRoutes from "./Routes/admin.route.js";
+import guideRoutes from "./Routes/guide.route.js";
+import blogRoutes from "./Routes/blog.route.js";
+import noticeRoutes from "./Routes/notice.route.js";
+import photoRoutes from "./Routes/photo.route.js";
+import videoRoutes from "./Routes/video.route.js";
+import floraFaunaRoutes from "./Routes/floraFauna.route.js";
+import hotelRoutes from "./Routes/hotel.route.js";
 import { errorMiddleWare } from "./Middleware/errorMiddleware.js";
 import { connectDB } from "./Connection/database.js";
 
@@ -14,7 +21,14 @@ app.use(express.json());
 app.use(cors(corsOption));
 
 app.get("/", (req, res) => res.send("hellow world"));
-app.use("/api/v1/admin", adminRoutes);   
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/guide", guideRoutes);
+app.use("/api/v1/hotel", hotelRoutes);
+app.use("/api/v1/blog", blogRoutes);
+app.use("/api/v1/notice", noticeRoutes);
+app.use("/api/v1/photo", photoRoutes);
+app.use("/api/v1/video", videoRoutes);
+app.use("/api/v1/flora-fauna", floraFaunaRoutes);
 
 await connectDB();                       
 
