@@ -1,5 +1,5 @@
 import React from 'react'
-import './TourGuideList.css'
+import '../../styles/TourGuideList.css'
 
 // Simple, static dataset for listing
 const GUIDES = [
@@ -31,4 +31,3 @@ export default function TourGuideList() {
     </section>
   )
 }
-

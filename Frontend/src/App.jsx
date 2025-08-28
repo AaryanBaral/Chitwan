@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import './App.css'
+import './styles/App.css'
 
 // Pages
-import TourGuides from './Client/TourGuide.jsx'
+import TourGuides from './components/Client/TourGuide.jsx'
 
 function App() {
   return (

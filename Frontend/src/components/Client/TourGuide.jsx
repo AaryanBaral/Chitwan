@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import "./TourGuide.css";
+import "../../styles/TourGuide.css";
 
 const GUIDES = [
   { id: 1, name: "Ramesh Thapa", languages: ["English", "Nepali"], photo: "/guides/ramesh.jpg", phone: "+9779801234567", email: "ramesh.guide@example.com" },
