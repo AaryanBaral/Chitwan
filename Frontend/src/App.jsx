@@ -1,34 +1,24 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import './styles/App.css'
+
+// Pages
+import TourGuides from './components/Client/TourGuide.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+      <header style={{ padding: '12px 16px', borderBottom: '1px solid #eee', display: 'flex', gap: 12 }}>
+        <Link to="/" style={{ fontWeight: 700 }}>Home</Link>
+        <Link to="/tour-guides">Tour Guides</Link>
+      </header>
+      <main style={{ padding: 16 }}>
+        <Routes>
+          <Route path="/" element={<div>Welcome! Use the nav to explore.</div>} />
+          <Route path="/tour-guides" element={<TourGuides />} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   )
 }
 
