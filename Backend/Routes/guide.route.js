@@ -1,6 +1,7 @@
 import express from "express";
 import guideService from "../Services/guide.service.js";
 import { createGuideSchema, updateGuideSchema } from "../Validations/guide.validation.js";
+import { singleFile } from "../Middleware/Multer.js";
 
 const router = express.Router();
 
@@ -18,14 +19,14 @@ router.get("/", async (req, res) => {
       gender: req.query.gender || undefined,
       experienceMin: req.query.experienceMin ?? undefined,
       experienceMax: req.query.experienceMax ?? undefined,
-      languages: req.query.languages ?? undefined, // comma-separated or repeated query: ?languages=en&languages=fr
+      languages: req.query.languages ?? undefined, 
       specialization: req.query.specialization || undefined,
       dobFrom: req.query.dobFrom || undefined,
       dobTo: req.query.dobTo || undefined,
       createdFrom: req.query.createdFrom || undefined,
       createdTo: req.query.createdTo || undefined,
-      sortBy: req.query.sortBy || undefined, // created_at, updated_at, full_name, experience_years
-      sortOrder: req.query.sortOrder || undefined, // ASC/DESC
+      sortBy: req.query.sortBy || undefined, 
+      sortOrder: req.query.sortOrder || undefined, 
     };
 
     const data = await guideService.listGuides(params);
@@ -49,13 +50,13 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create
-router.post("/", async (req, res) => {
+router.post("/", singleFile, async (req, res) => {
   const { error, value } = createGuideSchema.validate(req.body, { abortEarly: false });
   if (error) {
     return res.status(400).json({ message: "Validation error", details: error.details });
   }
   try {
-    const guide = await guideService.createGuide(value);
+    const guide = await guideService.createGuide(value, req.file || undefined);
     res.status(201).json(guide);
   } catch (err) {
     if (err?.name === "SequelizeUniqueConstraintError") {
@@ -70,13 +71,13 @@ router.post("/", async (req, res) => {
 });
 
 // Update
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", singleFile, async (req, res) => {
   const { error, value } = updateGuideSchema.validate(req.body, { abortEarly: false });
   if (error) {
     return res.status(400).json({ message: "Validation error", details: error.details });
   }
   try {
-    const guide = await guideService.updateGuide(req.params.id, value);
+    const guide = await guideService.updateGuide(req.params.id, value, req.file || undefined);
     if (!guide) return res.status(404).json({ message: "Guide not found" });
     res.json(guide);
   } catch (err) {
@@ -103,4 +104,3 @@ router.delete("/:id", async (req, res) => {
 });
 
 export default router;
-

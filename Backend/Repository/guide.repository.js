@@ -107,4 +107,3 @@ export default class GuideRepository {
     return { items, total, page, pageSize };
   }
 }
-

@@ -40,4 +40,3 @@ export const updateGuideSchema = Joi.object({
   experienceYears: Joi.number().integer().min(0).allow(null),
   status: Joi.string().valid(...statusEnum),
 }).min(1);
-
