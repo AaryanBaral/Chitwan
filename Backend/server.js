@@ -1,22 +1,24 @@
+import "dotenv/config";        
 import express from "express";
-import { corsOption } from "./Configurations/Cors.js";
 import cors from "cors";
-import { errorMiddleWare } from "./Middleware/ErrorMiddleware.js";
-import {connectDB} from "./Connection/Database.js";
+import { corsOption } from "./Configurations/cors.js";
+import adminRoutes from "./Routes/admin.route.js";
+import { errorMiddleWare } from "./Middleware/errorMiddleware.js";
+import { connectDB } from "./Connection/database.js";
+
 
 const PORT = process.env.PORT || 3000;
+
 const app = express();
 app.use(express.json());
 app.use(cors(corsOption));
 
-await connectDB();
+app.get("/", (req, res) => res.send("hellow world"));
+app.use("/api/v1/admin", adminRoutes);   
 
-app.get("/", (req, res) => {
-  res.send("hellow world");
-});
+await connectDB();                       
 
 app.use(errorMiddleWare);
-
 app.listen(PORT, () => {
-  console.log(`server running on http://localhost:${PORT}`);
+  console.log(`🚀 server running on http://localhost:${PORT}`);
 });

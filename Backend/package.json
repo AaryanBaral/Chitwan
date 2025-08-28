@@ -1,5 +1,6 @@
 {
   "name": "chitwan",
+  "type": "module",
   "version": "1.0.0",
   "description": "chitwan governmental app",
   "main": "server.js",
@@ -9,9 +10,11 @@
   "author": "Crown Institute",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "joi": "^18.0.1",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "mysql2": "^3.14.3",
