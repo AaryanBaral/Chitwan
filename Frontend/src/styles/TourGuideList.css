@@ -1,0 +1,45 @@
+/* Reuse the same palette used in TourGuide.css */
+:root{
+  --bg:#f2f5fa;
+  --panel:#ffffff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --border:#dee3ed;
+
+  --primary:#0e5cb8;
+  --primary-dark:#0a4b93;
+
+  --radius:18px;
+  --shadow:0 8px 22px rgba(2,6,23,.08);
+}
+
+.tgl{ max-width: 1000px; margin: 0 auto; }
+.tgl__title{ color: var(--text); font-size: 24px; font-weight: 800; margin: 8px 0 16px; }
+
+.tgl__grid{
+  list-style: none;
+  margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px;
+}
+@media (max-width: 880px){ .tgl__grid{ grid-template-columns: 1fr; } }
+
+.tgl__card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+.tgl__cardBody{ padding: 14px 16px; }
+.tgl__name{ font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.tgl__meta{ font-size: 14px; color: var(--muted); }
+.tgl__actions{ margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:10px 14px; border-radius:12px; border:1px solid var(--border);
+  background:#fff; font-weight:700; cursor:pointer; text-decoration: none; color: var(--text);
+}
+.btn--accent{ background:var(--primary); border-color:var(--primary); color:#fff; }
+.btn--accent:hover{ background:var(--primary-dark); }
+.btn--ghost{ background:#fff; border:1px solid var(--border); }
+.btn--ghost:hover{ background:#f6f9ff; }
