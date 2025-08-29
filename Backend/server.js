@@ -10,6 +10,8 @@ import photoRoutes from "./Routes/photo.route.js";
 import videoRoutes from "./Routes/video.route.js";
 import floraFaunaRoutes from "./Routes/floraFauna.route.js";
 import hotelRoutes from "./Routes/hotel.route.js";
+import placeRoutes from "./Routes/place.route.js";
+import feedbackRoutes from "./Routes/feedback.route.js";
 import { errorMiddleWare } from "./Middleware/errorMiddleware.js";
 import { connectDB } from "./Connection/database.js";
 
@@ -29,6 +31,8 @@ app.use("/api/v1/notice", noticeRoutes);
 app.use("/api/v1/photo", photoRoutes);
 app.use("/api/v1/video", videoRoutes);
 app.use("/api/v1/flora-fauna", floraFaunaRoutes);
+app.use("/api/v1/place", placeRoutes);
+app.use("/api/v1/feedback", feedbackRoutes);
 
 await connectDB();                       
 
