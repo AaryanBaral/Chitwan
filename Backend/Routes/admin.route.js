@@ -1,5 +1,6 @@
 import express from "express";
 import adminService from "../Services/admin.service.js";
+import { requireAdmin, requireSuperAdmin } from "../Middleware/auth.js";
 import {
   createAdminSchema,
   updateAdminSchema,
@@ -8,7 +9,7 @@ import {
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/", requireAdmin, async (req, res) => {
   try {
     const page = Number(req.query.page) || 1;
     const pageSize = Math.min(Number(req.query.pageSize) || 20, 100);
@@ -23,7 +24,7 @@ router.get("/", async (req, res) => {
 });
 
 // Get by id
-router.get("/:id", async (req, res) => {
+router.get("/:id", requireAdmin, async (req, res) => {
   try {
     const admin = await adminService.getById(req.params.id);
     if (!admin) return res.status(404).json({ message: "Admin not found" });
@@ -34,7 +35,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", requireSuperAdmin, async (req, res) => {
   const { error, value } = createAdminSchema.validate(req.body, {
     abortEarly: false,
   });
@@ -56,7 +57,7 @@ router.post("/", async (req, res) => {
 });
 
 // Update
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", requireSuperAdmin, async (req, res) => {
   const { error, value } = updateAdminSchema.validate(req.body, {
     abortEarly: false,
   });
@@ -79,7 +80,7 @@ router.patch("/:id", async (req, res) => {
 });
 
 // Delete
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", requireSuperAdmin, async (req, res) => {
   try {
     const deleted = await adminService.deleteAdmin(req.params.id);
     if (!deleted) return res.status(404).json({ message: "Admin not found" });

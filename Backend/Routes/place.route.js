@@ -2,6 +2,7 @@ import express from "express";
 import { multipleFiles } from "../Middleware/Multer.js";
 import placeService from "../Services/place.service.js";
 import { createPlaceSchema, updatePlaceSchema } from "../Validations/place.validation.js";
+import PlaceCategory from "../Models/placeCategory.model.js";
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.get("/", async (req, res) => {
       pageSize,
       q: req.query.q?.trim() || undefined,
       status: req.query.status || undefined,
-      category: req.query.category || undefined,
+      categoryId: req.query.categoryId || undefined,
       city: req.query.city || undefined,
       state: req.query.state || undefined,
       country: req.query.country || undefined,
@@ -49,6 +50,9 @@ router.post("/", multipleFiles, async (req, res) => {
   const { error, value } = createPlaceSchema.validate(req.body, { abortEarly: false });
   if (error) return res.status(400).json({ message: "Validation error", details: error.details });
   try {
+    // ensure category exists
+    const category = await PlaceCategory.findByPk(value.categoryId);
+    if (!category) return res.status(400).json({ message: "Invalid categoryId" });
     const created = await placeService.create(value, req.files || []);
     res.status(201).json(created);
   } catch (err) {
@@ -62,6 +66,10 @@ router.patch("/:id", multipleFiles, async (req, res) => {
   const { error, value } = updatePlaceSchema.validate(req.body, { abortEarly: false });
   if (error) return res.status(400).json({ message: "Validation error", details: error.details });
   try {
+    if (value.categoryId) {
+      const category = await PlaceCategory.findByPk(value.categoryId);
+      if (!category) return res.status(400).json({ message: "Invalid categoryId" });
+    }
     const updated = await placeService.update(req.params.id, value, req.files || []);
     if (!updated) return res.status(404).json({ message: "Place not found" });
     res.json(updated);
@@ -84,4 +92,3 @@ router.delete("/:id", async (req, res) => {
 });
 
 export default router;
-

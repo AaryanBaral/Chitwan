@@ -17,9 +17,10 @@ const Place = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    category: {
-      type: DataTypes.STRING(100),
+    categoryId: {
+      type: DataTypes.UUID,
       allowNull: true,
+      field: "category_id",
     },
     address: {
       type: DataTypes.STRING(255),
@@ -67,4 +68,3 @@ const Place = sequelize.define(
 );
 
 export default Place;
-

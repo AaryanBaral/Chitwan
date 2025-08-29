@@ -5,14 +5,17 @@ import { Op } from "sequelize";
 
 const repo = new PlaceRepository();
 
-function toPlaceDto(place, images = []) {
+function toPlaceDto(place, images = [], category = undefined) {
   if (!place) return null;
   const p = place.toJSON ? place.toJSON() : place;
   return {
     id: p.id,
     name: p.name,
     description: p.description,
-    category: p.category,
+    categoryId: p.categoryId,
+    category: category
+      ? { id: category.id, name: category.name, slug: category.slug, status: category.status }
+      : undefined,
     address: p.address,
     city: p.city,
     state: p.state,
@@ -44,7 +47,12 @@ export class PlaceService {
     const p = await repo.findById(id);
     if (!p) return null;
     const images = await PlaceImage.findAll({ where: { placeId: id }, order: [["sort_order", "ASC"], ["created_at", "ASC"]] });
-    return toPlaceDto(p, images);
+    let cat;
+    if (p.categoryId) {
+      const { default: PlaceCategory } = await import("../Models/placeCategory.model.js");
+      cat = await PlaceCategory.findByPk(p.categoryId);
+    }
+    return toPlaceDto(p, images, cat || undefined);
   }
 
   async list(params) {
@@ -60,7 +68,19 @@ export class PlaceService {
       arr.push(img);
       map.set(img.placeId, arr);
     }
-    return { ...result, items: result.items.map((pl) => toPlaceDto(pl, map.get(pl.id) || [])) };
+    // Load categories for the batch
+    const catIds = Array.from(new Set(result.items.map((pl) => pl.categoryId).filter(Boolean)));
+    let cats = [];
+    if (catIds.length) {
+      const { default: PlaceCategory } = await import("../Models/placeCategory.model.js");
+      const { Op } = await import("sequelize");
+      cats = await PlaceCategory.findAll({ where: { id: { [Op.in]: catIds } } });
+    }
+    const catMap = new Map(cats.map((c) => [c.id, c]));
+    return {
+      ...result,
+      items: result.items.map((pl) => toPlaceDto(pl, map.get(pl.id) || [], catMap.get(pl.categoryId))),
+    };
   }
 
   async update(id, payload, files = []) {
@@ -95,4 +115,3 @@ export class PlaceService {
 }
 
 export default new PlaceService();
-

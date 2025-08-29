@@ -5,7 +5,7 @@ const statusEnum = ["active", "inactive"];
 export const createPlaceSchema = Joi.object({
   name: Joi.string().max(200).required(),
   description: Joi.string().allow(null, "").optional(),
-  category: Joi.string().max(100).allow(null, "").optional(),
+  categoryId: Joi.string().guid({ version: ["uuidv4", "uuidv1"] }).required(),
   address: Joi.string().max(255).allow(null, "").optional(),
   city: Joi.string().max(100).allow(null, "").optional(),
   state: Joi.string().max(100).allow(null, "").optional(),
@@ -23,7 +23,7 @@ export const createPlaceSchema = Joi.object({
 export const updatePlaceSchema = Joi.object({
   name: Joi.string().max(200),
   description: Joi.string().allow(null, ""),
-  category: Joi.string().max(100).allow(null, ""),
+  categoryId: Joi.string().guid({ version: ["uuidv4", "uuidv1"] }),
   address: Joi.string().max(255).allow(null, ""),
   city: Joi.string().max(100).allow(null, ""),
   state: Joi.string().max(100).allow(null, ""),
@@ -38,4 +38,3 @@ export const updatePlaceSchema = Joi.object({
   status: Joi.string().valid(...statusEnum),
   imagesToRemove: Joi.array().items(Joi.string()),
 }).min(1);
-

@@ -25,7 +25,7 @@ export default class PlaceRepository {
       pageSize = 20,
       q,
       status,
-      category,
+      categoryId,
       city,
       state,
       country,
@@ -51,7 +51,7 @@ export default class PlaceRepository {
       ];
     }
     if (status) where.status = status;
-    if (category) where.category = { [Op.like]: `%${category}%` };
+    if (categoryId) where.categoryId = categoryId;
     if (city) where.city = { [Op.like]: `%${city}%` };
     if (state) where.state = { [Op.like]: `%${state}%` };
     if (country) where.country = { [Op.like]: `%${country}%` };
@@ -78,4 +78,3 @@ export default class PlaceRepository {
     return { items, total, page, pageSize };
   }
 }
-
