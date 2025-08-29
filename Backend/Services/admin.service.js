@@ -8,9 +8,9 @@ const adminRepo = new AdminRepository();
 
 function toAdminDto(admin) {
   if (!admin) return null;
-  const { id, email, isSuperAdmin, lastLoginAt, createdAt, updatedAt } =
-    admin;
-  return { id, email, isSuperAdmin, lastLoginAt, createdAt, updatedAt };
+  const { id, email, isSuperAdmin, lastLoginAt, createdAt, updatedAt } = admin;
+  const role = isSuperAdmin ? "super_admin" : "admin";
+  return { id, email, isSuperAdmin, role, lastLoginAt, createdAt, updatedAt };
 }
 
 
