@@ -1,27 +1,39 @@
-import React, { useMemo, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/TourGuide.css";
-
-const GUIDES = [
-  { id: 1, name: "Ramesh Thapa", languages: ["English", "Nepali"], photo: "/guides/ramesh.jpg", phone: "+9779801234567", email: "ramesh.guide@example.com" },
-  { id: 2, name: "Sita Gurung",  languages: ["English"],             photo: "/guides/sita.jpg",   phone: "+9779812345678", email: "sita.gurung@example.com" },
-  { id: 3, name: "Hari Chaudhary",languages: ["Nepali"],             photo: "/guides/hari.jpg",   phone: "+9779841111111", email: "hari.c@example.com" },
-  { id: 4, name: "Mina Lama",     languages: ["English","Nepali"],   photo: "/guides/mina.jpg",   phone: "+9779852020202", email: "mina.lama@example.com" },
-];
+import { guidesApi, uploadsUrl } from "../../lib/api.js";
 
 export default function TourGuides() {
   const [query, setQuery]   = useState("");
-  const [langs, setLangs]   = useState([]); // ["English","Nepali"]
+  const [langs, setLangs]   = useState([]); 
+  const [data, setData]     = useState({ items: [], total: 0, page: 1, pageSize: 12 });
+  const [loading, setLoading] = useState(true);
+  const [error, setError]   = useState("");
 
   const toggleLang = (lang) =>
     setLangs((prev) => (prev.includes(lang) ? prev.filter((l) => l !== lang) : [...prev, lang]));
 
-  const list = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    let out = [...GUIDES];
-    if (q) out = out.filter((g) => g.name.toLowerCase().includes(q));
-    if (langs.length) out = out.filter((g) => g.languages.some((L) => langs.includes(L)));
-    return out;
-  }, [query, langs]);
+  // fetch from backend whenever filters change
+  useEffect(() => {
+    let cancelled = false
+    async function run(){
+      setLoading(true)
+      setError("")
+      try{
+        const res = await guidesApi.list({ q: query || undefined, languages: langs, page: 1, pageSize: 20 })
+        if (cancelled) return
+        setData(res)
+      }catch(err){
+        if (cancelled) return
+        setError("Failed to load guides")
+      }finally{
+        if (!cancelled) setLoading(false)
+      }
+    }
+    const t = setTimeout(run, 200) // small debounce for typing
+    return () => { cancelled = true; clearTimeout(t) }
+  }, [query, langs])
+
+  const list = data.items || []
 
   return (
     <main className="tg">
@@ -69,36 +81,45 @@ export default function TourGuides() {
             <article key={g.id} className="card">
               <div className="card__imgWrap">
                 <img
-                  src={g.photo || "/guides/placeholder.jpg"}
-                  alt={g.name}
-                  onError={(e) => { e.currentTarget.src = "/guides/placeholder.jpg"; }}
+                  src={uploadsUrl(g.image) || "/guides/placeholder.svg"}
+                  alt={g.fullName || "Guide"}
+                  onError={(e) => { e.currentTarget.src = "/guides/placeholder.svg"; }}
                   loading="lazy"
                 />
               </div>
 
               <div className="card__body">
-                <h3 className="card__title">{g.name}</h3>
+                <h3 className="card__title">{g.fullName || "Unnamed"}</h3>
 
-                <button className="card__cta" type="button">view guide...</button>
+                <div className="tags">
+                  {g.specialization && <span className="tag">{g.specialization}</span>}
+                  {typeof g.experienceYears === 'number' && <span className="tag">{g.experienceYears} yrs exp</span>}
+                  {g.status && <span className="tag">{g.status}</span>}
+                </div>
 
-                <div className="card__info">
-                  <div className="card__row"><strong>Language :</strong> {g.languages.join(", ")}</div>
-
-                  <div className="card__actions">
-                    <a className="btn btn--ghost" href={`tel:${g.phone}`}>Call</a>
-                    <a className="btn btn--ghost" href={`mailto:${g.email}`}>Email</a>
-                  </div>
+                <div className="facts">
+                  {g.phone ? (
+                    <div className="fact"><span className="k">Phone</span><span className="v"><a href={`tel:${g.phone}`}>{g.phone}</a></span></div>
+                  ) : null}
+                  {g.email ? (
+                    <div className="fact"><span className="k">Email</span><span className="v"><a href={`mailto:${g.email}`}>{g.email}</a></span></div>
+                  ) : null}
+                  {g.languages?.length ? (
+                    <div className="fact"><span className="k">Languages</span><span className="v">{g.languages.join(', ')}</span></div>
+                  ) : null}
+                  {g.licenseNo ? (<div className="fact"><span className="k">License</span><span className="v">{g.licenseNo}</span></div>) : null}
+                  {g.address ? (<div className="fact"><span className="k">Address</span><span className="v">{g.address}</span></div>) : null}
                 </div>
               </div>
             </article>
           ))}
         </div>
-
-        {list.length === 0 && (
+        {loading && <div className="empty">Loading guides…</div>}
+        {!loading && error && <div className="empty">{error}</div>}
+        {!loading && !error && list.length === 0 && (
           <div className="empty">No guides found. Try a different name or language.</div>
         )}
       </section>
     </main>
   );
 }
-

@@ -1,23 +1,23 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/App.css'
 
-// Pages
+import Navbar from './components/Common/Navbar.jsx'
+import Footer from './components/Common/Footer.jsx'
+import Home from './pages/Home.jsx'
 import TourGuides from './components/Client/TourGuide.jsx'
 
 function App() {
   return (
     <BrowserRouter>
-      <header style={{ padding: '12px 16px', borderBottom: '1px solid #eee', display: 'flex', gap: 12 }}>
-        <Link to="/" style={{ fontWeight: 700 }}>Home</Link>
-        <Link to="/tour-guides">Tour Guides</Link>
-      </header>
-      <main style={{ padding: 16 }}>
+      <Navbar />
+      <main>
         <Routes>
-          <Route path="/" element={<div>Welcome! Use the nav to explore.</div>} />
+          <Route path="/" element={<Home />} />
           <Route path="/tour-guides" element={<TourGuides />} />
         </Routes>
       </main>
+      <Footer />
     </BrowserRouter>
   )
 }
