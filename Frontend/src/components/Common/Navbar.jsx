@@ -43,14 +43,14 @@ export default function Navbar() {
 
           <li><a href="#about">About</a></li>
           <li><a href="#flora-fauna">Flora & Fauna</a></li>
-          <li><a href="#blogs">Blogs</a></li>
+          <li><NavLink to="/blogs" className={({isActive}) => isActive ? 'active' : ''}>Blogs</NavLink></li>
 
           <li className="highlight">
             <NavLink to="/tour-guides" className={({isActive}) => isActive ? 'active' : ''}>Guides</NavLink>
           </li>
 
           <li><a href="#hotels">Hotels</a></li>
-          <li><a href="#notices">Notices</a></li>
+          <li><NavLink to="/notices" className={({isActive}) => isActive ? 'active' : ''}>Notices</NavLink></li>
           <li><a href="#training">Training</a></li>
           <li><a href="#forms">Forms</a></li>
 

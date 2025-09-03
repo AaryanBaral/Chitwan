@@ -69,3 +69,4 @@ const Notice = sequelize.define(
 
 export default Notice;
 
+

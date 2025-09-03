@@ -10,9 +10,9 @@ export default function Footer(){
           <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#flora-fauna">Flora & Fauna</a></li>
-            <li><a href="#blogs">Blogs</a></li>
+            <li><a href="/blogs">Blogs</a></li>
             <li><a href="#hotels">Hotels</a></li>
-            <li><a href="#notices">Notices</a></li>
+            <li><a href="/notices">Notices</a></li>
           </ul>
         </div>
         <div className="footer__col">
@@ -38,4 +38,3 @@ export default function Footer(){
     </footer>
   )
 }
-
