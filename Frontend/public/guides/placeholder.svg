@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260" viewBox="0 0 400 260" role="img" aria-label="Guide placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dfe9ff"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#g)"/>
+  <circle cx="200" cy="100" r="55" fill="#b9d1ff"/>
+  <rect x="120" y="170" width="160" height="50" rx="10" fill="#cbdafc"/>
+  <text x="200" y="195" text-anchor="middle" font-family="system-ui, Arial" font-size="16" fill="#2b4a7b">Tour Guide</text>
+</svg>

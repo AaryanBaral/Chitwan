@@ -1,0 +1,9 @@
+website color palatte: 
+    blue color: #235dba
+    red color : #db3545
+
+exactly doesnot have a constant color, different reds and blues are used in different governmental website
+just play with this reds and blues, and youre good to go!
+
+
+
