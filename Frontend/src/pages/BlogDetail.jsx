@@ -24,6 +24,8 @@ export default function BlogDetail(){
 
   return (
     <div className="blogs blogdetail">
+
+      
       <div className="detail__header">
         <Link className="btn-back" to="/blogs">← Back</Link>
         <h1>{blog.title}</h1>
