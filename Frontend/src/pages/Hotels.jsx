@@ -1,34 +1,36 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { noticesApi, uploadsUrl } from '../lib/api'
-import '../styles/notices.css'
+import { hotelsApi, uploadsUrl } from '../lib/api'
+import '../styles/hotels.css'
 
-export default function Notices(){
+export default function Hotels(){
   const [params, setParams] = useSearchParams()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [data, setData] = useState({ items: [], total: 0, page: 1, pageSize: 12 })
 
   const q = params.get('q') || ''
+  const city = params.get('city') || ''
+  const state = params.get('state') || ''
+  const country = params.get('country') || ''
   const sort = params.get('sort') || 'newest'
   const page = Number(params.get('page') || '1')
-  // popup-only filter is for admin use only; hidden in client
 
   const apiSort = useMemo(() => {
     if (sort === 'oldest') return { sortBy: 'created_at', sortOrder: 'ASC' }
-    if (sort === 'priority') return { sortBy: 'priority', sortOrder: 'DESC' }
+    if (sort === 'name') return { sortBy: 'name', sortOrder: 'ASC' }
     return { sortBy: 'created_at', sortOrder: 'DESC' }
   }, [sort])
 
   useEffect(() => {
     let mounted = true
     setLoading(true)
-    noticesApi.list({ page, pageSize: 12, q, status: 'published', ...apiSort })
+    hotelsApi.list({ page, pageSize: 12, q, city, state, country, ...apiSort })
       .then(res => { if (mounted) { setData(res); setError('') } })
-      .catch(e => { if (mounted) setError('Failed to load notices') })
+      .catch(() => { if (mounted) setError('Failed to load hotels') })
       .finally(() => mounted && setLoading(false))
     return () => { mounted = false }
-  }, [q, sort, page])
+  }, [q, city, state, country, sort, page])
 
   function updateParam(next){
     const p = new URLSearchParams(params)
@@ -40,22 +42,19 @@ export default function Notices(){
   }
 
   return (
-    <div className="notices">
-      <div className="notices__header">
-        <h1>Notices</h1>
+    <div className="hotels">
+      <div className="hotels__header">
+        <h1>Hotels</h1>
         <div className="filters">
-          <input
-            type="search"
-            placeholder="Search"
-            value={q}
-            onChange={e => updateParam({ q: e.target.value, page: 1 })}
-          />
+          <input type="search" placeholder="Search hotels" value={q} onChange={e => updateParam({ q: e.target.value, page: 1 })} />
+          <input type="text" placeholder="City" value={city} onChange={e => updateParam({ city: e.target.value, page: 1 })} />
+          <input type="text" placeholder="State" value={state} onChange={e => updateParam({ state: e.target.value, page: 1 })} />
+          <input type="text" placeholder="Country" value={country} onChange={e => updateParam({ country: e.target.value, page: 1 })} />
           <select value={sort} onChange={e => updateParam({ sort: e.target.value, page: 1 })}>
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-            <option value="priority">Priority</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="name">Name A–Z</option>
           </select>
-          {/* popup-only filter removed for client UI */}
         </div>
       </div>
 
@@ -64,22 +63,19 @@ export default function Notices(){
 
       {!loading && !error && (
         <div className="grid">
-          {data.items.map(n => {
-            const href = `/notices/${n.id}`
+          {data.items.map(h => {
+            const href = `/hotels/${h.id}`
+            const cover = (h.images && h.images[0]) ? uploadsUrl(h.images[0]) : null
             return (
-              <article key={n.id} className="ncard">
-                <div className="ncard__media" aria-hidden>
-                  {n.attachment && <img src={uploadsUrl(n.attachment)} alt="" onError={(e)=>{ e.currentTarget.style.display='none' }} />}
+              <article key={h.id} className="card">
+                <div className="card__media" aria-hidden>
+                  {cover && <img src={cover} alt="" onError={(e)=>{ e.currentTarget.style.display='none' }} />}
                 </div>
-                <div className="ncard__body">
-                  <h3 className="ncard__title">{n.title}</h3>
-                  {n.summary && <p className="ncard__sum">{n.summary}</p>}
-                  <div className="ncard__meta">
-                    <span>{new Date(n.createdAt).toLocaleDateString()}</span>
-                    {n.isPopup ? <span className="badge badge--red">Popup</span> : null}
-                  </div>
+                <div className="card__body">
+                  <h3 className="card__title">{h.name}</h3>
+                  <p className="card__sum">{h.address || ''}{h.city ? `, ${h.city}` : ''}{h.country ? `, ${h.country}` : ''}</p>
                 </div>
-                <Link className="ncard__link" to={href} aria-label={`Open ${n.title}`} />
+                <Link className="card__link" to={href} aria-label={`Open ${h.name}`} />
               </article>
             )
           })}
@@ -96,3 +92,4 @@ export default function Notices(){
     </div>
   )
 }
+

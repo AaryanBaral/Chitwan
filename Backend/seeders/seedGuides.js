@@ -3,7 +3,7 @@ import GuideImage from "../Models/guideImage.model.js";
 
 export async function seedGuides() {
   const count = await Guide.count();
-  if (count > 0) return { skipped: true, model: 'Guide' };
+  // if (count > 0) return { skipped: true, model: 'Guide' };
 
   const base = [
     ["Ramesh Thapa","male","01-90-12345","G-001","+9779800000001","ramesh@example.com","Ward-1, Chitwan","English,Nepali","Nature Guide",5],

@@ -8,10 +8,10 @@ export default function Footer(){
         <div className="footer__col">
           <div className="footer__title">Quick Links</div>
           <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#flora-fauna">Flora & Fauna</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/flora-fauna">Flora & Fauna</a></li>
             <li><a href="/blogs">Blogs</a></li>
-            <li><a href="#hotels">Hotels</a></li>
+            <li><a href="/hotels">Hotels</a></li>
             <li><a href="/notices">Notices</a></li>
           </ul>
         </div>

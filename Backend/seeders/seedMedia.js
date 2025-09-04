@@ -3,14 +3,14 @@ import Video from "../Models/video.model.js";
 
 export async function seedMedia(){
   const results = []
-  if (await Photo.count() === 0) {
+  // if (await Photo.count() === 0) {
     const desc = [
       'Rhino in Chitwan','Sunset on Rapti','Jungle trail','Canoe ride','Bird in flight',
       'Elephant bathing','Community program','Cultural dance','Forest canopy','River bend'
     ]
     const rows = await Photo.bulkCreate(desc.map(d => ({ description:d, image:'photos/placeholder.svg', status:'published', publishedAt:new Date() })))
     results.push({ model:'Photo', seeded: rows.length })
-  } else results.push({ model:'Photo', skipped:true })
+  // } else results.push({ model:'Photo', skipped:true })
 
   if (await Video.count() === 0) {
     const rowsV = await Video.bulkCreate([

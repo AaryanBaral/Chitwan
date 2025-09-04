@@ -1,8 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/home.css'
+import { noticesApi, trainingsApi } from '../lib/api'
 
 export default function Home() {
+  const [latestNotices, setLatestNotices] = useState([])
+  const [activities, setActivities] = useState([])
+
+  useEffect(() => {
+    let mounted = true
+    noticesApi.list({ page:1, pageSize:5, status:'published', sortBy:'created_at', sortOrder:'DESC' })
+      .then(res => { if (mounted) setLatestNotices(res.items || []) })
+      .catch(()=>{})
+    trainingsApi.list({ page:1, pageSize:10, status:'published', sortBy:'start_at', sortOrder:'ASC' })
+      .then(res => {
+        if (!mounted) return
+        const now = Date.now()
+        const items = (res.items||[]).filter(t => {
+          const s = t.startAt ? new Date(t.startAt).getTime() : 0
+          const e = t.endAt ? new Date(t.endAt).getTime() : 0
+          return now <= e
+        }).slice(0,5)
+        setActivities(items)
+      }).catch(()=>{})
+    return () => { mounted = false }
+  }, [])
+
   return (
     <div className="home">
       <section className="hero">
@@ -20,17 +43,26 @@ export default function Home() {
         <div className="panel">
           <div className="panel__title">Current activities</div>
           <ul className="notice">
-            <li><a href="#training">Upcoming training: Nature guiding basics</a><small>Starting next week</small></li>
-            <li><a href="#blogs">Blog: Conserving community forests</a><small>New post</small></li>
-            <li><a href="#notices">Call for volunteers: Ward clean-up</a><small>Open</small></li>
+            {activities.map(a => (
+              <li key={a.id}>
+                <Link to={`/training/${a.slug || a.id}`}>{a.title}</Link>
+                <small>{new Date(a.startAt).toLocaleDateString()} → {new Date(a.endAt).toLocaleDateString()}</small>
+              </li>
+            ))}
+            {!activities.length && <li>No active items</li>}
           </ul>
         </div>
 
         <div className="panel">
           <div className="panel__title">Latest notices</div>
           <ul className="notice">
-            <li><a href="#notices">Community training registration open</a><small>Just now</small></li>
-            <li><a href="#notices">Ward clean-up program this weekend</a><small>2 days ago</small></li>
+            {latestNotices.map(n => (
+              <li key={n.id}>
+                <Link to={`/notices/${n.id}`}>{n.title}</Link>
+                <small>{new Date(n.createdAt).toLocaleDateString()}</small>
+              </li>
+            ))}
+            {!latestNotices.length && <li>No notices</li>}
           </ul>
         </div>
       </section>

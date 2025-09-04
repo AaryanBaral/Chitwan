@@ -1,2 +1,6 @@
 node_modules/
 Backend/uploads/
+
+# Local env files
+Frontend/.env
+Backend/.env

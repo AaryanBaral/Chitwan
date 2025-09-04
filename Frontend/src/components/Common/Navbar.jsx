@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import '../../styles/navbar.css'
+import LanguageToggle from './LanguageToggle'
+import { useTranslate } from '../../lib/i18n'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const t = useTranslate()
 
   return (
     <div className="site-wrapper">
@@ -39,37 +42,38 @@ export default function Navbar() {
           ☰
         </button>
         <ul className={`mainnav__list ${open ? 'is-open' : ''}`} onClick={() => setOpen(false)}>
-          <li><NavLink to="/" end className={({isActive}) => isActive ? 'active' : ''}>Home</NavLink></li>
+          <li><NavLink to="/" end className={({isActive}) => isActive ? 'active' : ''}>{t('Home')}</NavLink></li>
 
-          <li><a href="#about">About</a></li>
-          <li><a href="#flora-fauna">Flora & Fauna</a></li>
-          <li><NavLink to="/blogs" className={({isActive}) => isActive ? 'active' : ''}>Blogs</NavLink></li>
+          <li><NavLink to="/about" className={({isActive}) => isActive ? 'active' : ''}>{t('About')}</NavLink></li>
+          <li><NavLink to="/flora-fauna" className={({isActive}) => isActive ? 'active' : ''}>{t('Flora & Fauna')}</NavLink></li>
+          <li><NavLink to="/blogs" className={({isActive}) => isActive ? 'active' : ''}>{t('Blogs')}</NavLink></li>
 
           <li className="highlight">
-            <NavLink to="/tour-guides" className={({isActive}) => isActive ? 'active' : ''}>Guides</NavLink>
+            <NavLink to="/tour-guides" className={({isActive}) => isActive ? 'active' : ''}>{t('Guides')}</NavLink>
           </li>
 
-          <li><a href="#hotels">Hotels</a></li>
-          <li><NavLink to="/notices" className={({isActive}) => isActive ? 'active' : ''}>Notices</NavLink></li>
-          <li><a href="#training">Training</a></li>
-          <li><a href="#forms">Forms</a></li>
+          <li><NavLink to="/hotels" className={({isActive}) => isActive ? 'active' : ''}>{t('Hotels')}</NavLink></li>
+          <li><NavLink to="/notices" className={({isActive}) => isActive ? 'active' : ''}>{t('Notices')}</NavLink></li>
+          <li><NavLink to="/training" className={({isActive}) => isActive ? 'active' : ''}>{t('Training')}</NavLink></li>
+          {/* Forms link removed from navbar as requested */}
 
           {/* Gallery dropdown */}
           <li className="has-dropdown">
             <a href="#gallery" className="dropdown__toggle">
-              <span>Gallery</span>
+              <span>{t('Gallery')}</span>
               <span className="caret">▾</span>
             </a>
             <ul className="dropdown">
-              <li><a href="#photos">Photos</a></li>
-              <li><a href="#videos">Videos</a></li>
+              <li><a href="#photos">{t('Photos')}</a></li>
+              <li><a href="#videos">{t('Videos')}</a></li>
             </ul>
           </li>
 
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#feedback">Feedback</a></li>
-          <li><a href="#complain">Complain</a></li>
+          <li><NavLink to="/contact" className={({isActive}) => isActive ? 'active' : ''}>{t('Contact')}</NavLink></li>
+          <li><NavLink to="/faq" className={({isActive}) => isActive ? 'active' : ''}>{t('FAQ')}</NavLink></li>
+          <li><NavLink to="/feedback" className={({isActive}) => isActive ? 'active' : ''}>{t('Feedback')}</NavLink></li>
+          <li><NavLink to="/complain" className={({isActive}) => isActive ? 'active' : ''}>{t('Complain')}</NavLink></li>
+          <li className="lang-slot"><LanguageToggle /></li>
         </ul>
       </nav>
     </div>

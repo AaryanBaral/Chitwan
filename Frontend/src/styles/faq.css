@@ -1,0 +1,13 @@
+:root{ --red:#be2c2c; --blue:#1e63b5; --black:#000; --white:#fff; --shadow:0 8px 22px rgba(0,0,0,.12); }
+
+.static{ max-width:none; width:100%; margin:20px auto; padding:0 16px 28px; color:var(--black); }
+.s-hero{ border-radius:18px; background:var(--white); box-shadow:var(--shadow); padding:24px 18px; }
+.s-hero h1{ margin:0 0 6px; font-size:32px; letter-spacing:-.01em; }
+.s-hero p{ margin:0; opacity:.85; }
+
+.faq{ margin-top:16px; }
+.faq-item{ background:var(--white); border-radius:14px; box-shadow:var(--shadow); overflow:hidden; margin-bottom:10px; }
+.faq-q{ width:100%; text-align:left; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:14px; font-weight:900; cursor:pointer; border:none; background:transparent; }
+.faq-q:hover{ background:rgba(30,99,181,.06); }
+.faq-a{ padding:0 14px; max-height:0; opacity:0; overflow:hidden; transition:max-height .25s ease, opacity .25s ease, padding .25s ease; }
+.faq-item.is-open .faq-a{ padding:0 14px 14px; max-height:300px; opacity:.95; }

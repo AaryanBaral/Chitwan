@@ -2,10 +2,10 @@ import PlaceCategory from "../Models/placeCategory.model.js";
 import Place from "../Models/place.model.js";
 
 export async function seedPlaces(){
-  let catEco = await PlaceCategory.findOne({ where: { slug: 'eco-park' } })
-  if (!catEco) catEco = await PlaceCategory.create({ name:'Eco Park', slug:'eco-park', description:'Eco tourism sites', status:'active' })
-  let catHeritage = await PlaceCategory.findOne({ where: { slug: 'heritage' } })
-  if (!catHeritage) catHeritage = await PlaceCategory.create({ name:'Heritage', slug:'heritage', description:'Cultural heritage sites', status:'active' })
+  // let catEco = await PlaceCategory.findOne({ where: { slug: 'eco-park' } })
+  // if (!catEco) catEco = await PlaceCategory.create({ name:'Eco Park', slug:'eco-park', description:'Eco tourism sites', status:'active' })
+  // let catHeritage = await PlaceCategory.findOne({ where: { slug: 'heritage' } })
+  // if (!catHeritage) catHeritage = await PlaceCategory.create({ name:'Heritage', slug:'heritage', description:'Cultural heritage sites', status:'active' })
 
   const count = await Place.count();
   if (count > 0) return { skipped:true, model:'Place' };
