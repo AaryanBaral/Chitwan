@@ -1,7 +1,10 @@
 // Auth/Jwt.js
 import jwt from "jsonwebtoken";
 
-const SECRET = process.env.JWT_SECRET ?? "fallbacksecret";
+const SECRET = process.env.JWT_SECRET;
+if (!SECRET) {
+  throw new Error('JWT_SECRET is not set in environment');
+}
 const EXPIRES_IN = process.env.JWT_EXPIRES_IN ?? "1d";
 
 export function createToken(admin) {

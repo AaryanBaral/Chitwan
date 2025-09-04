@@ -2,7 +2,7 @@ import FloraFauna from "../Models/floraFauna.model.js";
 
 export async function seedFloraFauna(){
   const count = await FloraFauna.count();
-  if (count > 0) return { skipped: true, model: 'FloraFauna' };
+  // if (count > 0) return { skipped: true, model: 'FloraFauna' };
   const rows = await FloraFauna.bulkCreate([
     { type:'fauna', commonName:'One-horned Rhinoceros', scientificName:'Rhinoceros unicornis', status:'active' },
     { type:'flora', commonName:'Sal Tree', scientificName:'Shorea robusta', status:'active' },

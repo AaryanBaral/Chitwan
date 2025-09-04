@@ -699,3 +699,9 @@ Video — Create (single video)
 - Services: `Backend/Services/*.service.js`
 - Repositories: `Backend/Repository/*.repository.js`
 - Validations: `Backend/Validations/*.validation.js`
+Frontend i18n (Nepali default)
+
+- Language toggle added in navbar (ने/EN). Default language is Nepali.
+- Google Translate integration is supported for dynamic content translation.
+- Set `VITE_GOOGLE_TRANSLATE_KEY` in `Frontend/.env` to enable automatic translations. Without a key, static UI uses a built-in Nepali dictionary and dynamic content stays as-is.
+- For production, prefer proxying Google Translate via backend to avoid exposing keys.

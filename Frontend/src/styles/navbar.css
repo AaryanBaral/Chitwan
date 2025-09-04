@@ -28,10 +28,11 @@
 
 /* Main navigation */
 .mainnav{ background:var(--blue); color:#fff; }
+.mainnav{ position:relative; z-index:1000; }
 .mainnav .menu-btn{ display:none; background:transparent; border:0; color:#fff; font-size:22px; padding:10px 14px; }
 .mainnav__list{ max-width:1200px; margin:0 auto; padding:0 8px; list-style:none; display:flex; gap:2px; align-items:center; height:56px; }
 .mainnav__list li a{ position:relative; color:#fff; padding:12px 14px; border-radius:6px; display:flex; align-items:center; gap:6px; font-weight:600; line-height:1; }
-.mainnav__list li a:hover{ background:rgba(255,255,255,.12); }
+.mainnav__list li a:hover{ background: var(--red); }
 /* animated red underline for active */
 .mainnav__list li a::after{ content:""; position:absolute; left:12px; right:12px; bottom:6px; height:3px; background:var(--red); border-radius:2px; transform:scaleX(0); transform-origin:left; transition:transform .22s ease; }
 .mainnav__list li a.active{ background:transparent; }
@@ -43,10 +44,15 @@
 .has-dropdown{ position:relative; }
 .dropdown__toggle{ cursor:pointer; display:flex; align-items:center; gap:6px; }
 .dropdown__toggle .caret{ font-size:12px; line-height:1; }
-.dropdown{ position:absolute; left:0; top:100%; background:#ffffff; color:#000; list-style:none; padding:6px; margin:0; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,.15); display:none; min-width:180px; border:1px solid rgba(0,0,0,.08); }
+.dropdown{ position:absolute; left:0; top:100%; background:#ffffff; color:#000; list-style:none; padding:6px; margin:0; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,.15); display:none; min-width:180px; border:1px solid rgba(0,0,0,.08); z-index:1100; }
 .dropdown li a{ color:#000; padding:8px 10px; border-radius:6px; }
 .dropdown li a:hover{ background:rgba(30,99,181,.12); color:#000; }
 .has-dropdown:hover .dropdown{ display:block; }
+
+/* Language toggle */
+.lang-slot{ margin-left:auto; }
+.lang-toggle{ border:none; background:#fff; color:var(--blue); font-weight:900; padding:8px 10px; border-radius:9999px; cursor:pointer; }
+.lang-toggle:hover{ background: var(--red); color:#fff; }
 
 @media (max-width: 900px){
   .has-dropdown{ position:static; }

@@ -2,7 +2,7 @@ import Hotel from "../Models/hotel.model.js";
 
 export async function seedHotels(){
   const count = await Hotel.count();
-  if (count > 0) return { skipped: true, model: 'Hotel' };
+  // if (count > 0) return { skipped: true, model: 'Hotel' };
   const names = [
     'Rapti Riverside Resort','Jungle Inn','Safari View Lodge','Tharu Heritage Stay','Green Park Hotel',
     'Wildlife Haven','Chitwan Eco Lodge','Riverbank Retreat','Parkside Homestay','Forest Edge Resort',

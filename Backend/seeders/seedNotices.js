@@ -1,8 +1,8 @@
 import Notice from "../Models/notice.model.js";
 
 export async function seedNotices(){
-  const count = await Notice.count();
-  if (count > 0) return { skipped: true, model: 'Notice' };
+  // const count = await Notice.count();
+  // if (count > 0) return { skipped: true, model: 'Notice' };
   const now = new Date();
   const titles = [
     'Community training registration open','Ward clean-up program this weekend','Flora documentation drive',

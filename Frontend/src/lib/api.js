@@ -35,4 +35,23 @@ export const noticesApi = {
   popups: (limit = 10) => get('/notice/popups', { limit }),
 }
 
+export const hotelsApi = {
+  list: (params) => get('/hotel', params),
+  get: (id) => get(`/hotel/${id}`),
+}
+
+export const floraApi = {
+  list: (params) => get('/flora-fauna', params),
+  get: (id) => get(`/flora-fauna/${id}`),
+}
+
+export const trainingsApi = {
+  list: (params) => get('/training', params),
+  get: (idOrSlug) => get(`/training/${idOrSlug}`),
+}
+
+export const trainingRegApi = {
+  create: (payload) => api.post('/training-registration', payload).then(r => r.data),
+}
+
 export { API_BASE, API_ORIGIN, api }
