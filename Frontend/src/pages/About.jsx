@@ -145,12 +145,13 @@ export default function About(){
         <h2>Testimonials</h2>
         <Testimonials
           items={[
-            { name: 'Anna Deynah', role: 'UX Designer', text: 'Excellent service and responsive staff. The portal makes everything easier.', image: '' },
-            { name: 'John Doe', role: 'Web Developer', text: 'Clean processes and clear instructions. Appreciate the transparency.', image: '' },
-            { name: 'Maria Kate', role: 'Photographer', text: 'Quick updates and friendly support — love the initiative!', image: '' },
-            { name: 'Sita Sharma', role: 'Community Lead', text: 'Programs are well organized and inclusive.', image: '' },
-            { name: 'Ram Karki', role: 'Volunteer', text: 'Registration and follow-ups were smooth through the portal.', image: '' },
+            { name: 'Anna Deynah', role: 'UX Designer', company: 'Civic Labs', text: 'Excellent service and responsive staff. The portal makes everything easier.', imageUrl: '' },
+            { name: 'John Doe', role: 'Web Developer', company: 'Open Web', text: 'Clean processes and clear instructions. Appreciate the transparency.', imageUrl: '' },
+            { name: 'Maria Kate', role: 'Photographer', company: 'Studio MK', text: 'Quick updates and friendly support — love the initiative!', imageUrl: '' },
+            { name: 'Sita Sharma', role: 'Community Lead', company: 'Ward 7', text: 'Programs are well organized and inclusive.', imageUrl: '' },
+            { name: 'Ram Karki', role: 'Volunteer', company: 'Community Corps', text: 'Registration and follow-ups were smooth through the portal.', imageUrl: '' },
           ]}
+          autoplay={false}
         />
       </section>
 
