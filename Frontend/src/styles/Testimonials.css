@@ -1,0 +1,115 @@
+
+:root {
+  --blue: #0000ff;
+  --red: #ff0000;
+  --black: #000;
+  --white: #fff;
+}
+.tc-window {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  min-height: 220px;
+  height: var(--fixedH, auto);
+  transition: height 0.2s ease;
+  display: grid; /* allow vertical centering of content */
+  align-items: center;
+}
+.tc-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+.tc-row {
+  display: flex;
+  align-items: center; /* center side cards vertically in the window */
+  height: 100%;
+}
+.tc-card {
+  box-sizing: border-box;
+  flex: 0 0 var(--cardW, calc(100% / 3));
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* vertically center card contents */
+  height: 100%;
+  gap: 0.25rem;
+  text-align: center;
+  transition: transform 0.8s ease, opacity 0.3s ease;
+  color: var(--black);
+}
+.tc-card:not(.is-center) {
+  transform: scale(0.92);
+  opacity: 0.75;
+}
+.tc-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--blue);
+  background: var(--white);
+  margin-bottom: 0.5rem;
+}
+.tc-avatar.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--blue);
+  background: rgba(30,99,181,0.08);
+}
+.tc-name {
+  font-weight: 600;
+}
+.tc-head { display:flex; flex-direction:column; align-items:center; }
+.tc-role {
+  color: var(--blue);
+  margin: 0.25rem 0 0.5rem;
+}
+.tc-text {
+  max-width: 60ch;
+}
+.tc-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--blue);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+}
+.tc-nav:hover {
+  background: var(--red);
+}
+.tc-nav.left { left: 0; }
+.tc-nav.right { right: 0; }
+.tc-nav:focus { outline: none; }
+.tc-nav:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(30,99,181,.35); }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 600px) {
+  .tc-text {
+    display: none;
+  }
+}

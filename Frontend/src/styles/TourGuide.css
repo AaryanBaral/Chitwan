@@ -25,62 +25,26 @@ body{
 
 /* LAYOUT */
 .tg{
-  max-width:1200px;
-  margin:28px auto;
-  padding:0 16px;
-  display:grid;
-  grid-template-columns:280px 1fr;
-  gap:24px;
-}
-@media (max-width: 960px){ .tg{ grid-template-columns:1fr; } }
-
-/* LEFT FILTER PANEL */
-.tg__filter{
-  background:#fff;
-  border-left:6px solid var(--primary);
-  border-right:none;
-  border-top:none;
-  border-bottom:none;
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  padding:18px 18px 20px;
-  height:fit-content;
-  position:sticky; top:16px;
-}
-.tg__filterTitle{ font-size:20px; font-weight:900; color:#000; margin-bottom:12px; text-align:center; letter-spacing:-.01em; }
-.form__group{ margin:16px 0; }
-.label{ font-size:14px; font-weight:700; color:var(--text); margin:8px 0 6px; }
-.check{ display:flex; align-items:center; gap:10px; padding:6px 0; color:#000; }
-.check input{ width:16px; height:16px; accent-color: var(--primary); }
-.check span{ display:inline-block; padding:8px 12px; border:none; border-radius:9999px; font-weight:800; background:#fff; box-shadow: 0 8px 22px rgba(0,0,0,.12); }
-.check span:hover{ background: var(--red); color:#fff; }
-.check input:checked + span{ background: var(--red); color:#fff; border:none; }
-
-.tg .input{
+  max-width:none;
   width:100%;
-  border:none;
-  border-radius:9999px;
-  padding:14px 18px;
-  background:#fff;
-  outline:none;
-  margin-bottom:12px;
-  font-weight:700; color:#000;
-  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+  margin:20px auto;
+  padding:0 16px 24px;
+  color:var(--text);
 }
-.tg .input::placeholder{ color: rgba(0,0,0,.55); }
-.tg .input:focus{ box-shadow: 0 0 0 3px rgba(190,44,44,.25); }
 
-.tg .btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  padding:12px 16px; border-radius:9999px; border:none;
-  background:var(--primary); color:#fff; font-weight:800; cursor:pointer; transition: box-shadow .15s ease, transform .15s ease, background-color .15s ease;}
-  
-.tg .btn:hover{ background: var(--red); }
-.btn--accent{ background:var(--primary); border-color:var(--primary); color:#fff; }
-.btn--accent:hover{ background:var(--primary-dark); }
-.btn--full{ width:100%; }
-.btn--ghost{ background:#fff; border:1px solid var(--border); }
-.btn--ghost:hover{ background:#f6f9ff; }
+/* Header + filters bar (match Hotels/Blogs/Flora) */
+.tg__header{ display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-bottom:12px; }
+.tg__header h1{ margin:0; font-size:28px; line-height:1.2; }
+.tg .filters{ display:flex; gap:12px; align-items:center; background:var(--panel); border:none; border-radius:9999px; padding:12px; box-shadow: var(--shadow); }
+.tg .filters input[type="search"],
+.tg .filters input[type="text"],
+.tg .filters select{ appearance:none; padding:12px 16px; border:none; outline:none; background:#fff; color:var(--text); font-weight:700; box-shadow: 0 8px 22px rgba(0,0,0,.12); border-radius:9999px; }
+.tg .filters input:focus, .tg .filters select:focus{ box-shadow: 0 0 0 3px rgba(190,44,44,.25); }
+.tg .filters input[type="search"]{ min-width:220px; }
+.tg .filters :focus{ outline:none; box-shadow:0 0 0 3px rgba(30,99,181,.25); border-radius:9999px; }
+.tg .filters button{ border:none; background:var(--primary); color:#fff; padding:10px 14px; border-radius:9999px; font-weight:800; }
+
+/* legacy sidebar filter styles removed in favor of top filters */
 
 /* GRID */
 .tg__grid{

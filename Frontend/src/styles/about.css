@@ -44,35 +44,9 @@
 .step__body h3{ margin:0 0 4px; font-size:18px; }
 .step__body p{ margin:0; opacity:.85; }
 
-/* Testimonials (3-up with center focus) */
+/* Testimonials section shell; inner slider styles come from Testimonials.css */
 .testimonials{ margin-top:18px; background:var(--white); border:none; border-radius:16px; box-shadow: 0 8px 22px rgba(0,0,0,.12); padding:16px; }
 .testimonials h2{ margin:0 0 8px; }
-.tc-window{ position:relative; overflow:hidden; }
-.tc-track{ display:flex; gap:0; align-items:stretch; will-change: transform; transition: transform .5s cubic-bezier(0.22, 0.61, 0.36, 1); }
-.tc-card{ flex:0 0 33.333%; padding:16px; text-align:center; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; height: 280px; transform: scale(.94); opacity:.85; transition: transform .5s cubic-bezier(0.22, 0.61, 0.36, 1), opacity .5s ease; }
-.tc-window.is-anim .tc-card{ transition: transform .35s ease, opacity .35s ease; }
-.tc-window.anim-right .tc-card{ transform: translateX(-33.333%); }
-.tc-window.anim-left .tc-card{ transform: translateX(33.333%); }
-.tc-card.is-center{ background:#fff; justify-content:flex-start; transform: scale(1); opacity:1; }
-
-/* Emphasize incoming center card during slide */
-.tc-window.anim-left .tc-card:nth-child(2){ transform: scale(.96); }
-.tc-window.anim-left .tc-card:nth-child(3){ transform: scale(1.02); opacity:1; }
-.tc-window.anim-right .tc-card:nth-child(2){ transform: scale(.96); }
-.tc-window.anim-right .tc-card:nth-child(1){ transform: scale(1.02); opacity:1; }
-.tc-avatar{ width:96px; height:96px; margin:8px auto 10px; border-radius:9999px; background:#fff; border:3px solid var(--blue); display:flex; align-items:center; justify-content:center; color:var(--blue); font-weight:900; font-size:22px; overflow:hidden; }
-.tc-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
-.tc-name{ font-weight:900; margin-top:6px; }
-.tc-role{ opacity:.8; margin-bottom:8px; }
-.tc-text{ margin:8px auto 0; max-width:620px; line-height:1.7; }
-.tc-nav{ position:absolute; top:50%; transform:translateY(-50%); border:none; background:var(--blue); color:#fff; width:40px; height:40px; border-radius:9999px; cursor:pointer; font-weight:900; z-index:2; }
-.tc-nav:hover{ background: var(--red); }
-.tc-nav--left{ left:6px; }
-.tc-nav--right{ right:6px; }
-
-@media (max-width: 720px){
-  .tc-card{ height: 320px; }
-}
 
 /* Associated Persons */
 .people{ margin-top:18px; background:var(--white); border:none; border-radius:16px; box-shadow: 0 8px 22px rgba(0,0,0,.12); padding:16px; }

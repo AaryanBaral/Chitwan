@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "../../styles/TourGuide.css";
 import { guidesApi, uploadsUrl } from "../../lib/api.js";
 
@@ -34,47 +34,33 @@ export default function TourGuides() {
   }, [query, langs])
 
   const list = data.items || []
+  const langValue = useMemo(() => (langs && langs.length ? langs[0] : ""), [langs])
 
   return (
     <main className="tg">
-      {/* LEFT FILTER */}
-      <aside className="tg__filter">
-        <h2 className="tg__filterTitle">Filter Tour Guides</h2>
-
-        <div className="form__group">
+      <div className="tg__header">
+        <h1>Tour Guides</h1>
+        <div className="filters">
           <input
-            className="input"
-            placeholder="eg. name, location, city etc."
+            type="search"
+            placeholder="Search tour guides"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button className="btn btn--accent btn--full" type="button">search guides »</button>
+          <select
+            value={langValue}
+            onChange={(e) => {
+              const v = e.target.value;
+              setLangs(v ? [v] : []);
+            }}
+          >
+            <option value="">All languages</option>
+            <option value="English">English</option>
+            <option value="Nepali">Nepali</option>
+          </select>
         </div>
+      </div>
 
-        <div className="form__group">
-          <div className="label">Tour Guide Language</div>
-
-          <label className="check">
-            <input
-              type="checkbox"
-              checked={langs.includes("English")}
-              onChange={() => toggleLang("English")}
-            />
-            <span>English</span>
-          </label>
-
-          <label className="check">
-            <input
-              type="checkbox"
-              checked={langs.includes("Nepali")}
-              onChange={() => toggleLang("Nepali")}
-            />
-            <span>Nepali</span>
-          </label>
-        </div>
-      </aside>
-
-      {/* RIGHT GRID */}
       <section className="tg__content">
         <div className="tg__grid">
           {list.map((g) => (
